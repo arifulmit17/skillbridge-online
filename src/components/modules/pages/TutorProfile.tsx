@@ -1,6 +1,7 @@
 import Link from "next/link"
 import UpdateUserProfile from "../shared/UpdateUserProfile"
 import { userService } from "@/services/user.service"
+import { getUser } from "@/services/auth.service"
 
 
 
@@ -80,7 +81,7 @@ export default async function TutorProfilePage({
   userId?: string
 }) {
     
-      const {data:user}=await userService.getSession()
+      const {data:user}=await getUser()
       // console.log(user.user.name,tutor?.user.name);
 
   return (

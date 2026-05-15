@@ -46,7 +46,7 @@ export function AppSidebar({ user,...props }: {user: { role: string } & React.Co
   return (
     <Sidebar {...props}>
      
-      <SidebarContent>
+      <SidebarContent className="bg-background">
         {/* We create a SidebarGroup for each parent. */}
         {routes.map((item) => (
           <SidebarGroup key={item.title}>

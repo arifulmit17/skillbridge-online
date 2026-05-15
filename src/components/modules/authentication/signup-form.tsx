@@ -140,155 +140,123 @@ export function SignupForm(
   }
 
   return (
-    <Card {...props}>
-      <CardHeader>
-        <CardTitle>
-          Create an account
-        </CardTitle>
+    <Card {...props} className="max-w-md w-full mx-auto shadow-lg rounded-2xl">
+  <CardHeader className="space-y-1 text-center">
+    <CardTitle className="text-2xl font-semibold">
+      Create your account
+    </CardTitle>
 
-        <CardDescription>
-          Enter your information below to
-          create your account
-        </CardDescription>
-      </CardHeader>
+    <CardDescription className="text-sm text-muted-foreground">
+      Join us by entering your details below
+    </CardDescription>
+  </CardHeader>
 
-      <CardContent>
-        <form onSubmit={handleSubmit}>
-          <FieldGroup>
-            {/* Name */}
-            <Field>
-              <FieldLabel htmlFor="name">
-                Full Name
-              </FieldLabel>
+  <CardContent>
+    <form onSubmit={handleSubmit} className="space-y-5">
+      
+      {/* Full Name */}
+      <Field className="space-y-2">
+        <FieldLabel htmlFor="name">Full Name</FieldLabel>
+        <Input
+          id="name"
+          name="name"
+          placeholder="John Doe"
+          required
+          value={formData.name}
+          onChange={handleChange}
+          className="bg-card rounded-md border px-3 py-2 text-sm"
+        />
+      </Field>
 
-              <Input
-                id="name"
-                name="name"
-                placeholder="Name"
-                required
-                value={formData.name}
-                onChange={handleChange}
-                className="text-primary"
-              />
-            </Field>
+      {/* Email */}
+      <Field className="space-y-2">
+        <FieldLabel htmlFor="email">Email</FieldLabel>
+        <Input
+          id="email"
+          name="email"
+          type="email"
+          placeholder="you@example.com"
+          required
+          value={formData.email}
+          onChange={handleChange}
+          className="bg-card rounded-md border px-3 py-2 text-sm"
+        />
+      </Field>
 
-            {/* Email */}
-            <Field>
-              <FieldLabel htmlFor="email">
-                Email
-              </FieldLabel>
+      {/* Password */}
+      <Field className="space-y-2">
+        <FieldLabel htmlFor="password">Password</FieldLabel>
+        <Input
+          id="password"
+          name="password"
+          type="password"
+          required
+          value={formData.password}
+          onChange={handleChange}
+        />
+        <FieldDescription>
+          Must contain at least 8 characters
+        </FieldDescription>
+      </Field>
 
-              <Input
-                id="email"
-                name="email"
-                type="email"
-                placeholder="abc@example.com"
-                required
-                value={formData.email}
-                onChange={handleChange}
-              />
-            </Field>
+      {/* Confirm Password */}
+      <Field className="space-y-2">
+        <FieldLabel htmlFor="confirmPassword">
+          Confirm Password
+        </FieldLabel>
+        <Input
+          id="confirmPassword"
+          name="confirmPassword"
+          type="password"
+          required
+          value={formData.confirmPassword}
+          onChange={handleChange}
+        />
+      </Field>
 
-            {/* Password */}
-            <Field>
-              <FieldLabel htmlFor="password">
-                Password
-              </FieldLabel>
+      {/* Role */}
+      <Field className="space-y-2">
+        <FieldLabel htmlFor="role">Account Type</FieldLabel>
+        <select
+          id="role"
+          name="role"
+          value={formData.role}
+          onChange={handleChange}
+          className="w-full rounded-md border bg-card px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+        >
+          <option value="student">Student</option>
+          <option value="tutor">Tutor</option>
+        </select>
+      </Field>
 
-              <Input
-                id="password"
-                name="password"
-                type="password"
-                required
-                value={formData.password}
-                onChange={handleChange}
-              />
+      {/* Image */}
+      <Field className="space-y-2">
+        <FieldLabel htmlFor="image">Profile Image (optional)</FieldLabel>
+        <Input
+          id="image"
+          name="image"
+          placeholder="https://example.com/photo.jpg"
+          value={formData.image}
+          onChange={handleChange}
+        />
+        <FieldDescription>
+          You can add this later as well
+        </FieldDescription>
+      </Field>
 
-              <FieldDescription>
-                Must be at least 8
-                characters long.
-              </FieldDescription>
-            </Field>
+      {/* Submit */}
+      <Button type="submit" className="w-full h-11 text-sm font-medium">
+        Create Account
+      </Button>
 
-            {/* Confirm Password */}
-            <Field>
-              <FieldLabel htmlFor="confirmPassword">
-                Confirm Password
-              </FieldLabel>
-
-              <Input
-                id="confirmPassword"
-                name="confirmPassword"
-                type="password"
-                required
-                value={
-                  formData.confirmPassword
-                }
-                onChange={handleChange}
-              />
-            </Field>
-
-            {/* Role */}
-            <Field>
-              <FieldLabel htmlFor="role">
-                Role
-              </FieldLabel>
-
-              <select
-                id="role"
-                name="role"
-                value={formData.role}
-                onChange={handleChange}
-                className="w-full rounded-md border px-3 py-2 text-sm"
-              >
-                <option value="student">
-                  Student
-                </option>
-
-                <option value="tutor">
-                  Tutor
-                </option>
-              </select>
-            </Field>
-
-            {/* Image */}
-            <Field>
-              <FieldLabel htmlFor="image">
-                Profile Image URL
-              </FieldLabel>
-
-              <Input
-                id="image"
-                name="image"
-                placeholder="https://example.com/image.png"
-                value={formData.image}
-                onChange={handleChange}
-              />
-
-              <FieldDescription>
-                Optional profile photo.
-              </FieldDescription>
-            </Field>
-
-            {/* Submit */}
-            <Field className="space-y-3">
-              <Button
-                type="submit"
-                className="w-full"
-              >
-                Create Account
-              </Button>
-
-              <FieldDescription className="text-center">
-                Already have an account?{" "}
-                <a href="/login">
-                  Sign in
-                </a>
-              </FieldDescription>
-            </Field>
-          </FieldGroup>
-        </form>
-      </CardContent>
-    </Card>
+      <p className="text-center text-sm text-muted-foreground">
+        Already have an account?{" "}
+        <a href="/login" className="text-primary hover:underline">
+          Sign in
+        </a>
+      </p>
+    </form>
+  </CardContent>
+</Card>
   )
 }

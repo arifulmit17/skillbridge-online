@@ -3,6 +3,7 @@ import { tutorService } from '@/services/tutor.service';
 import { userService } from '@/services/user.service';
 import TutorProfile from '@/components/modules/pages/TutorProfile';
 import React from 'react'
+import { getUser } from '@/services/auth.service';
 
 
 type Tutor = {
@@ -21,7 +22,7 @@ type Tutor = {
   }
 }
 export default async function MyTutors() {
-    const {data:user}=await userService?.getSession()
+    const {data:user}=await getUser()
         const  myId=user?.session?.userId;
         // console.log(myId);
         const {data:tutor}=await tutorService?.getTutorByUserId(myId);

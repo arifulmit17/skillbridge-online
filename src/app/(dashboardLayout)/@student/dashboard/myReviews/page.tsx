@@ -1,5 +1,6 @@
 export const dynamic = "force-dynamic"
 import ReviewCard from '@/components/modules/Cards/ReviewCard';
+import { getUser } from '@/services/auth.service';
 import { reviewsService } from '@/services/reviews.service';
 import { userService } from '@/services/user.service';
 import React from 'react'
@@ -12,7 +13,7 @@ type Review = {
   createdAt: string
 }
 export default async function page() {
-     const {data:user}=await userService?.getSession()
+     const {data:user}=await  getUser()
             const  myId=user?.session?.userId;
             // console.log(myId);
             const {data:review}=await reviewsService?.getAllReviews();

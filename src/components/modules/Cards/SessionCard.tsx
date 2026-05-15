@@ -14,6 +14,7 @@ import ReviewInput from "../shared/ReviewInput"
 import { availabilityService } from "@/services/availability.service"
 import { Button } from "@/components/ui/button"
 import CancelBooking from "../shared/CancelBooking"
+import { getUser } from "@/services/auth.service"
 
 type User = {
   id: string
@@ -68,7 +69,7 @@ export async function  SessionCard({ session }: { session: Session }) {
   const start = session?.startTime
   const end =session?.endTime
   const sessionStudentID=session?.studentId
-      const { data} = await userService?.getSession();
+      const { data} = await  getUser();
        
     const role= data?.user?.role
     const userId=data?.user?.id

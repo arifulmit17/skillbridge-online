@@ -1,4 +1,5 @@
 import { SessionCard } from '@/components/modules/Cards/SessionCard';
+import { getUser } from '@/services/auth.service';
 import { bookingService } from '@/services/booking.service';
 import { tutorService } from '@/services/tutor.service';
 import { userService } from '@/services/user.service';
@@ -50,7 +51,7 @@ type AvailabilitySlot = {
 }
 
 export default async function MySessions() {
-     const {data:user}=await userService?.getSession()
+     const {data:user}=await  getUser()
     const  myId=user?.session?.userId;
     const {data:tutor}=await tutorService?.getTutorByUserId(myId);
     const authorId=tutor?.id;

@@ -1,4 +1,5 @@
 import { SessionCreatePage } from '@/components/modules/pages/SessionCreatePage';
+import { getUser } from '@/services/auth.service';
 import { availabilityService } from '@/services/availability.service';
 import { categoriesService } from '@/services/categories.service';
 import { tutorService } from '@/services/tutor.service';
@@ -15,7 +16,7 @@ type User = {
   createdAt: string
 }
 export default async function CreateSessionPage() {
-    const {data:user}=await userService?.getSession()
+    const {data:user}=await  getUser()
         const  myId=user?.session?.userId;
         
         const {data:tutor}=await tutorService?.getTutorByUserId(myId);

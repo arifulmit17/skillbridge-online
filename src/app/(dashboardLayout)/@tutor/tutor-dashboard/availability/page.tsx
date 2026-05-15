@@ -1,4 +1,5 @@
 import CreateSlotButton from '@/components/modules/shared/createSlotButton';
+import { getUser } from '@/services/auth.service';
 import { availabilityService } from '@/services/availability.service'
 import { tutorService } from '@/services/tutor.service';
 import { userService } from '@/services/user.service';
@@ -17,7 +18,7 @@ export default async function Availability() {
   const { data } = await availabilityService?.getAllSlots()
   const slots = await data?.json()
   // console.log(slots);
-  const { data: user } = await userService?.getSession()
+  const { data: user } = await  getUser()
   const myId = user?.session?.userId
   const {data:tutor}=await tutorService?.getTutorByUserId(myId);
   // console.log("tutor is here ",tutor.data.id);

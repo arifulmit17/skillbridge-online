@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic"
 import Image from "next/image"
 import { userService } from "@/services/user.service";
 import UpdateUserProfile from "@/components/modules/shared/UpdateUserProfile";
+import { getUser } from "@/services/auth.service";
 type User = {
   id: string
   name: string
@@ -16,8 +17,8 @@ type User = {
 
 
 export default async function ProfilePage() {
-  const {data} = await userService.getSession()
-  const user=data?.user
+  const data = await getUser()
+  const user=data
   return (
    <div className="min-h-screen bg-background flex items-center justify-center px-4 ">
   <div className="w-full max-w-3xl bg-card text-card-foreground rounded-2xl shadow-md border border-border p-8">

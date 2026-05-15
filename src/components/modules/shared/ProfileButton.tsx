@@ -21,7 +21,7 @@ export default function ProfileButton({ session }) {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <div className="flex px-5 items-center gap-2 rounded-xl text-white bg-primary" >
-          <span>{session.user.name}</span>
+          <span>{session?.name}</span>
         </div>
       </DropdownMenuTrigger>
 
