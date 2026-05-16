@@ -1,6 +1,7 @@
-import { reviewsService } from '@/services/reviews.service'
+
 import React from 'react'
 import ReviewCard from '../Cards/ReviewCard'
+import { getAllReviews } from '@/services/reviews.service'
 
 type Review = {
   id: string
@@ -12,9 +13,9 @@ type Review = {
 }
 
 export default async function ReviewSection() {
-    const { data: reviewsRes } = await reviewsService?.getAllReviews()
+    const { data: reviewsRes } = await getAllReviews()
     
-    const reviews = reviewsRes ? await reviewsRes.json() : []
+    const reviews = reviewsRes ? reviewsRes : []
     
   return (
      <div className="w-11/12 grid grid-cols-1 lg:grid-cols-3 gap-5">

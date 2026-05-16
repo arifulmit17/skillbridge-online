@@ -1,7 +1,7 @@
 import ReviewCard from '@/components/modules/Cards/ReviewCard';
 import ReviewPage from '@/components/modules/pages/Reviewpage';
 import { getUser } from '@/services/auth.service';
-import { reviewsService } from '@/services/reviews.service'
+import { getAllReviews } from '@/services/reviews.service';
 import { tutorService } from '@/services/tutor.service';
 type Review = {
   id: string
@@ -16,9 +16,9 @@ export default async function TutorReviewsPage() {
     const {data:user}=await getUser()
     const tutor=await tutorService?.getTutorByUserId(user?.session?.userId)
     // console.log(tutor);
-    const reviews=await reviewsService?.getAllReviews()
+    const reviews=await getAllReviews()
     
-    const data=await reviews?.data?.json();
+    const data= reviews?.data;
     // console.log(data);
     // const filteredReviews=data?.filter((review:Review)=>review?.tutorId===tutor?.data?.id)
     const filteredReviews = data?.filter((review: Review) => {

@@ -58,7 +58,7 @@ type Session = {
 
 
 export async function  SessionCard({ session }: { session: Session }) {
-  // console?.log(session);
+  console?.log("session: ", session);
   const tutorId=session?.tutor?.userId
   const SessionStatus=session?.status
   
@@ -68,11 +68,11 @@ export async function  SessionCard({ session }: { session: Session }) {
   const start = session?.startTime
   const end =session?.endTime
   const sessionStudentID=session?.studentId
-      const { data} = await  getUser();
+      const data = await  getUser();
        
-    const role= data?.user?.role
-    const userId=data?.user?.id
-    const userName=data?.user?.name
+    const role= data?.role
+    const userId=data?.id
+    const userName=data?.name
     let booked=false
     
     
@@ -152,7 +152,7 @@ export async function  SessionCard({ session }: { session: Session }) {
 
           {!booked && (
             <BookingButton
-              studentId={data?.user?.id}
+              studentId={data?.id}
               sessionId={session?.id}
               slotId={session?.availabilitySlotId}
             />
@@ -172,7 +172,7 @@ export async function  SessionCard({ session }: { session: Session }) {
             </h1>
             <ReviewInput
               tutorId={session?.tutorId}
-              userId={data?.user?.id}
+              userId={data?.id}
             />
           </div>
         )}

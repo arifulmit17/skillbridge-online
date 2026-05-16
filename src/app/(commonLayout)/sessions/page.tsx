@@ -1,5 +1,6 @@
 import { SessionCard } from '@/components/modules/Cards/SessionCard'
-import { bookingService } from '@/services/booking.service'
+import { getAllSessions } from '@/services/booking.service'
+
 import React from 'react'
 
 type User = {
@@ -44,8 +45,8 @@ type Session = {
 
 export default async function SessionPage() {
 
-    const {data}=await bookingService?.getAllSessions()
-    const sessionData=await data?.json()
+    const {data}=await getAllSessions()
+    const sessionData= data
     // console.log(sessionData);
     
   return (

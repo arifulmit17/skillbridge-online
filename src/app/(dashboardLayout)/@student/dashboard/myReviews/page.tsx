@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic"
 import ReviewCard from '@/components/modules/Cards/ReviewCard';
 import { getUser } from '@/services/auth.service';
-import { reviewsService } from '@/services/reviews.service';
+import { getAllReviews } from '@/services/reviews.service';
 import { userService } from '@/services/user.service';
 import React from 'react'
 type Review = {
@@ -16,7 +16,7 @@ export default async function page() {
      const {data:user}=await  getUser()
             const  myId=user?.session?.userId;
             // console.log(myId);
-            const {data:review}=await reviewsService?.getAllReviews();
+            const {data:review}=await getAllReviews();
             const userReview=await review?.json()
             const myReviews=userReview?.filter((b:Review) => b?.userId === myId);
             

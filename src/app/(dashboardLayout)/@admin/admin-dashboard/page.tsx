@@ -1,8 +1,10 @@
 import { getUser } from "@/services/auth.service";
-import { bookingService } from "@/services/booking.service";
-import { getAllCategories } from "@/services/categories.service";
+import { getAllSessions } from "@/services/booking.service";
 
-import { reviewsService } from "@/services/reviews.service";
+import { getAllCategories } from "@/services/categories.service";
+import { getAllReviews } from "@/services/reviews.service";
+
+
 import { userService2 } from "@/services/user2.service";
 
 export const dynamic = "force-dynamic"
@@ -12,16 +14,16 @@ export default async function AdminDashboard() {
   console.log(users);
   const tutor=users?.data.filter(user=>user?.role==="tutor")
   const student=users?.data.filter(user=>user?.role==="student"||user?.role==="Student")
-  const {data:sessions}=await bookingService?.getAllSessions()
+  const {data:sessions}=await getAllSessions()
   const Sessions=await sessions.json()
   const sessionlength=Array.isArray(Sessions) ? Sessions?.length : 0
   const {data:cats}=await getAllCategories()
   
   const Cats=cats
   const Catlength=Array.isArray(Cats) ? Cats?.length : 0
-  const { data: reviewsRes } = await reviewsService?.getAllReviews()
+  const { data: reviewsRes } = await getAllReviews()
 
-const reviews = reviewsRes ? await reviewsRes.json() : []
+const reviews = reviewsRes ? reviewsRes : []
 const reviewLength = Array.isArray(reviews) ? reviews?.length : 0
 
  

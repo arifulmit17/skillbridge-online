@@ -17,18 +17,19 @@ type User = {
   createdAt: string
 }
 export default async function CreateSessionPage() {
-    const {data:user}=await  getUser()
-        const  myId=user?.session?.userId;
-        
+    const user=await  getUser()
+        const  myId=user?.id;
+        console.log("myId",user);
         const {data:tutor}=await tutorService?.getTutorByUserId(myId);
-        
+        console.log("tutor data", tutor);
         const {data:category}=await getAllCategories();
         const {data:slot}=await getAllSlots();
        
             const categoryList=category;
-            const slotList=await slot?.json()
+            const slotList= slot
             //  const studentid="uvDEjuFHNU2cW4EIw9hD9LAQNGkgVwqt";
-            // console.log(slotList);
+            console.log("categoryList", categoryList);
+            console.log("slotList", slotList);
   return (
     <div>
   {slotList?.data &&

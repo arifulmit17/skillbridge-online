@@ -1,6 +1,7 @@
 export const dynamic = "force-dynamic"
 import { SessionCard } from '@/components/modules/Cards/SessionCard';
-import { bookingService } from '@/services/booking.service';
+import { getAllSessions } from '@/services/booking.service';
+
 import React from 'react'
 
 type User = {
@@ -44,7 +45,7 @@ type Session = {
 
 
 export default async function Allsessionpage() {
-  const sessionsData=await bookingService?.getAllSessions();
+  const sessionsData=await getAllSessions();
       const sessions=await sessionsData?.data?.json();
 
   return (

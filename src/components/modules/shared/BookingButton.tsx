@@ -1,8 +1,9 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { updateSlot } from "@/services/availability.service";
+import { updateSession } from "@/services/booking.service";
 
-import { bookingService } from "@/services/booking.service";
+
 import { toast } from "sonner";
 
 type BookingButtonProps = {
@@ -17,8 +18,10 @@ export default function BookingButton({studentId,
   const handleBooking= async(studentId:string,sessionId :string,slotId: string)=>{
       console.log("student id: ",studentId,"session id:",sessionId);
        
-       const {res}= await bookingService.updateSession(sessionId,{studentId})
+       const {data:res}= await updateSession(sessionId,{studentId})
+       console.log(res);
        const {data:res2}= await updateSlot(slotId,{isBooked:true})
+       console.log(res2);
       if(res && res2){
         toast.success("Session booked successfully")
       }

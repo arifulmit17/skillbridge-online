@@ -1,6 +1,7 @@
 
 
-import { bookingService } from '@/services/booking.service';
+
+import { getAllSessions } from '@/services/booking.service';
 import { SessionCard2 } from '../Cards/SessionCard2';
 type User = {
   id: string
@@ -42,8 +43,8 @@ type Session = {
 }
 
 export default async function  PopularSessions() {
-    const sessionsData=await bookingService.getAllSessions();
-          const sessions=await sessionsData.data.json();
+    const sessionsData=await getAllSessions();
+          const sessions= sessionsData.data;
           const pendingSessions = sessions?.filter(
   (session:Session) => session.status === "PENDING"
 ) ?? []

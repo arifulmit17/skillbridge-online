@@ -1,6 +1,7 @@
 import { SessionCard } from '@/components/modules/Cards/SessionCard';
 import { getUser } from '@/services/auth.service';
-import { bookingService } from '@/services/booking.service';
+import { getAllSessions } from '@/services/booking.service';
+
 import { tutorService } from '@/services/tutor.service';
 import { userService } from '@/services/user.service';
 import React from 'react'
@@ -51,12 +52,13 @@ type AvailabilitySlot = {
 }
 
 export default async function MySessions() {
-     const {data:user}=await  getUser()
-    const  myId=user?.session?.userId;
+     const user=await  getUser()
+    const  myId=user?.id;
     const {data:tutor}=await tutorService?.getTutorByUserId(myId);
     const authorId=tutor?.id;
-    const sessionsData=await bookingService?.getAllSessions();
-    const sessions=await sessionsData?.data?.json();
+    const sessionsData=await getAllSessions();
+    const sessions= sessionsData?.data;
+    console.log("sessions",sessions);
     const mySessions=sessions?.filter((session:Session)=>session?.tutorId===authorId);
   return (
    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5'>

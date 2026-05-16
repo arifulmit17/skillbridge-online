@@ -1,6 +1,7 @@
 "use client"
 import { Button } from '@/components/ui/button'
-import { bookingService } from '@/services/booking.service';
+import { deleteSession } from '@/services/booking.service';
+
 import React from 'react'
 import { toast } from 'sonner';
 
@@ -8,7 +9,7 @@ const handleDelete=async  (sessionId:string)=>{
   // console.log(sessionId);
  toast(`Deleting session with ID: ${sessionId}` );
   // Implement deletion logic here
-  const res =await bookingService.deleteSession(sessionId)
+  const res =await deleteSession(sessionId)
    if(res.data){
     toast.success("session deleted successfully");
    }

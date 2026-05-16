@@ -82,6 +82,7 @@ export async function updateSlot(
   data: UpdateSlotData
 ) {
   try {
+    const cookieStore = await cookies()
     const res = await fetch(
       `${API_URL}/slots/${slotId}`,
       {

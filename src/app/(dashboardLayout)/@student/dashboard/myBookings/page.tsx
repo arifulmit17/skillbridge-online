@@ -1,7 +1,8 @@
 export const dynamic = "force-dynamic"
 import { SessionCard } from '@/components/modules/Cards/SessionCard';
 import { getUser } from '@/services/auth.service';
-import { bookingService } from '@/services/booking.service'
+import { getAllSessions } from '@/services/booking.service';
+
 import { userService } from '@/services/user.service';
 import React from 'react'
 
@@ -48,7 +49,7 @@ type Session = {
 export default async function MyBookingPage() {
     const {data:user}=await  getUser()
     const  myId=user?.session?.userId;
-    const {data}=await bookingService?.getAllSessions()
+    const {data}=await getAllSessions()
     const booking=await data?.json()
     
     const myBookings = booking?.filter((b:Session) => b?.studentId === myId);
