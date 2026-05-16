@@ -1,6 +1,6 @@
 import CreateSlotButton from '@/components/modules/shared/createSlotButton';
 import { getUser } from '@/services/auth.service';
-import { availabilityService } from '@/services/availability.service'
+import { getAllSlots } from '@/services/availability.service';
 import { tutorService } from '@/services/tutor.service';
 import { userService } from '@/services/user.service';
 
@@ -15,11 +15,13 @@ type AvailabilitySlot = {
 
 
 export default async function Availability() {
-  const { data } = await availabilityService?.getAllSlots()
-  const slots = await data?.json()
-  // console.log(slots);
-  const { data: user } = await  getUser()
-  const myId = user?.session?.userId
+  const  {data}  = await getAllSlots()
+  console.log("slots:",data);
+  const slots = data || []
+  console.log(slots);
+  const user = await  getUser()
+  const myId = user?.id
+  console.log(user);
   const {data:tutor}=await tutorService?.getTutorByUserId(myId);
   // console.log("tutor is here ",tutor.data.id);
   
@@ -28,9 +30,10 @@ export default async function Availability() {
 const mySlots = slots?.data.filter((slot: AvailabilitySlot) => {
   // console.log("checking slot:", slot);
   // console.log("slot.tutorId:", slot?.tutorId);
-  // console.log("tutor.id:", tutor?.id);
+  console.log("tutor.id:", tutor?.id);
   return slot?.tutorId === tutor?.id;
 });
+console.log("my slots:", mySlots);
 
 // console.log(slots);
   return (

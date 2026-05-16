@@ -11,7 +11,6 @@ import BookingButton from "../shared/BookingButton"
 
 import { tutorService } from "@/services/tutor.service"
 import ReviewInput from "../shared/ReviewInput"
-import { availabilityService } from "@/services/availability.service"
 import { Button } from "@/components/ui/button"
 import CancelBooking from "../shared/CancelBooking"
 import { getUser } from "@/services/auth.service"

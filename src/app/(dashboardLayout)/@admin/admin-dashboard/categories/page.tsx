@@ -1,7 +1,8 @@
 export const dynamic = "force-dynamic"
 import { CategoryCard } from '@/components/modules/Cards/CategoryCard';
 import CategoryCreatePage from '@/components/modules/pages/CategoryCreatePage';
-import { categoriesService } from '@/services/categories.service'
+import { getAllCategories } from '@/services/categories.service';
+
 
 type   category= {
     id: string
@@ -14,9 +15,9 @@ type   category= {
 }
 
 export default async function Categorypage() {
-    const {data}=await categoriesService?.getAllCategories()
-    const categoryList=await data?.json();
-    // console?.log(categoryList);
+    const {data}=await getAllCategories()
+    const categoryList=data
+    console?.log(categoryList);
   return (
     <div className="space-y-4">
     <h2 className="text-lg font-semibold">Categories</h2>

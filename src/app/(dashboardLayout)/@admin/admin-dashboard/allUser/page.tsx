@@ -15,12 +15,13 @@ type User = {
 }
 export default async function AllUser() {
   const data=await userService2?.getAllUser()
+  console.log(data.data.data)
   
 
   return (
    <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">
-  {Array.isArray(data?.data) && data?.data?.length > 0 ? (
-    data?.data?.map((user: User) => (
+  {Array.isArray(data?.data?.data) && data?.data?.data?.length > 0 ? (
+    data?.data?.data?.map((user: User) => (
       <UserCard key={user?.id} user={user} />
     ))
   ) : (

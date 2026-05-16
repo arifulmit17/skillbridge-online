@@ -63,7 +63,7 @@ export  function ProfilepageTutor({
       ...formData,
     }
 
-    // console.log("Tutor profile payload:", payload)
+    console.log("Tutor profile payload:", payload)
 
     try{
             const res=await fetch(`${NEXT_PUBLIC_API_URL}/tutors`,{

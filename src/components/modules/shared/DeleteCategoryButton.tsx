@@ -1,9 +1,10 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { categoriesService } from "@/services/categories.service"
+
 import { toast } from "sonner"
 import { useRouter } from "next/navigation"
+import { deleteCategory } from "@/services/categories.service"
 
 export default function DeleteCategoryButton({ categoryId }: { categoryId: string }) {
   const router = useRouter()
@@ -16,7 +17,7 @@ export default function DeleteCategoryButton({ categoryId }: { categoryId: strin
     if (!confirmed) return
 
     try {
-      await categoriesService.deleteCategory(categoryId)
+      await deleteCategory(categoryId)
       toast.success("Category deleted successfully")
       router.refresh()
     } catch (error) {

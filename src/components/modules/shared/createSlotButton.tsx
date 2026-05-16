@@ -3,7 +3,8 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
-import { availabilityService } from "@/services/availability.service"
+import { createSlot } from "@/services/availability.service"
+
 
 export default function CreateSlotButton({ tutorId }: { tutorId: string }) {
   const [dayOfWeek, setDayOfWeek] = useState<string>("")
@@ -20,7 +21,7 @@ export default function CreateSlotButton({ tutorId }: { tutorId: string }) {
       setLoading(true)
 
       // 
-      const res = await availabilityService.createSlot(tutorId, dayOfWeek)
+      const res = await createSlot(tutorId, dayOfWeek)
       
       const data = res
 
