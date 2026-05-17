@@ -6,7 +6,7 @@ import {
 } from "@/components/ui/card"
 import DeleteButton from "../shared/DeleteButton"
 import CompleteButton from "../shared/CompleteButton"
-import { userService } from "@/services/user.service"
+
 import BookingButton from "../shared/BookingButton"
 
 import { tutorService } from "@/services/tutor.service"

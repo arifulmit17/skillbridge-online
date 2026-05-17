@@ -46,7 +46,7 @@ type Session = {
 
 export default async function Allsessionpage() {
   const sessionsData=await getAllSessions();
-      const sessions=await sessionsData?.data?.json();
+      const sessions=await sessionsData?.data;
 
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-5">

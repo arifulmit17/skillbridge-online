@@ -32,7 +32,8 @@ import { ModeToggle } from "../modules/shared/ModeToggle";
 import logo from "../logo.png";
 import Image from "next/image";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { getUser } from "@/services/auth.service";
+import { getUser, logoutUser } from "@/services/auth.service";
+import { toast } from "sonner";
 
 interface MenuItem {
   title: string;
@@ -67,8 +68,13 @@ interface Navbar1Props {
 
 
 const handleLogout = async () => {
-  // BetterAuth has been removed. Implement your custom logout logic here.
-  window.location.href = "/login";
+    const res = await logoutUser();
+    if (!res.success) {
+      toast.error("Logout failed");
+      return;
+    }
+    toast.success("Logged out successfully");
+    window.location.href = "/login";
 }
 
 const Navbar1 = ({

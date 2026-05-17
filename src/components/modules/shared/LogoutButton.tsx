@@ -1,11 +1,16 @@
 "use client";
 import { Button } from '@/components/ui/button';
+import { logoutUser } from '@/services/auth.service';
 import { toast } from 'sonner';
 
 
 export default function LogoutButton() {
     const handleLogout = async () => {
-    // BetterAuth has been removed. Implement your custom logout logic here.
+    const res = await logoutUser();
+    if (!res.success) {
+      toast.error("Logout failed");
+      return;
+    }
     toast.success("Logged out successfully")
     window.location.href = "/login";
 }

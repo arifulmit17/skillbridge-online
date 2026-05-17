@@ -1,29 +1,42 @@
-import { env } from "@/env";
-import { cookies } from "next/headers";
-const AUTH_URL=env.AUTH_URL
+"use server"
 
-export const userService={
-    getSession: async function(){
-        try{
-            const cookieStore=await cookies()
+import { env } from "@/env"
+import { cookies } from "next/headers"
 
- const res=await fetch(`${AUTH_URL}/get-session`,{
-  headers:{
-    cookie:cookieStore.toString()
-  },
-  cache:'no-store'
- })
- const session=await res.json()
-//  console.log("Home page session:",session);
- return {data:session,error:null}
+const API_URL = env.API_URL
+
+// helper inside file (recommended for reuse inside same file)
+
+
+  // GET ALL USERS
+ export const getAllUser=async function() {
+    const cookieStore = await cookies();
+    try {
+      const res = await fetch(
+        `${API_URL}/users`,
+        {
+          headers: {
+            Cookie: cookieStore.toString(),
+          },
+          cache: "no-store",
         }
-    catch(err){
-        // console.log(err);
-        return {data:null,error:{message:"Failed to fetch session"}}
+      )
+
+      const users = await res.json()
+
+      return {
+        data: users,
+        error: null,
+      }
+    } catch (err) {
+      return {
+        data: null,
+        error: {
+          message:
+            "Failed to fetch users",
+        },
+      }
     }
-},
+  }
 
-
-
-
-}
+  
