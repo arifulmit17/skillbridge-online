@@ -1,36 +1,157 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SkillBridge
 
-## Getting Started
+**A full-stack platform connecting learners with expert tutors for seamless session booking and management.**
 
-First, run the development server:
+---
+
+## 📌 Problem Statement
+
+Finding the right tutor can be time-consuming and inefficient. Students often struggle to discover qualified tutors, check their availability, and book sessions smoothly. On the other hand, tutors lack a centralized platform to showcase their expertise, manage schedules, and track sessions. Additionally, there is a need for proper administration to maintain platform integrity and user management.
+
+---
+
+Live link: https://skillbridge-online.vercel.app/
+Backend: https://b6-skill-bridge-backend.vercel.app/
+
+## 💡 Solution Overview
+
+SkillBridge solves this problem by providing a centralized, user-friendly platform where:
+
+* Students can easily explore tutor profiles, check availability, and book sessions instantly.
+* Tutors can manage their profiles, availability, and teaching sessions efficiently.
+* Admins can oversee the entire system, manage users, and ensure smooth platform operations.
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+
+* Next.js
+* React
+* TypeScript
+* Tailwind CSS
+* ShadCN UI
+
+### Backend
+
+* Node.js
+* Express.js
+
+### Database
+
+* PostgreSQL
+* Prisma ORM
+
+### Authentication
+
+* BetterAuth 
+
+### Other Tools
+
+* REST API
+* Fetch
+* Toast Notifications (Sonner)
+
+---
+
+## ✨ Key Features
+
+### 👨‍🎓 For Students
+
+* Browse tutor profiles
+* View tutor availability
+* Book sessions instantly
+* Leave reviews and ratings
+
+### 👩‍🏫 For Tutors
+
+* Create and manage profiles
+* Set availability schedule
+* Manage booked sessions
+* Track teaching history
+
+### 🛡️ Admin Panel
+
+* Manage users (students & tutors)
+* Control user roles and status
+* Monitor platform activities
+
+### ⚙️ General Features
+
+* Secure authentication system
+* Responsive UI/UX
+* Real-time feedback with notifications
+* Clean dashboard interfaces
+
+---
+
+
+
+Example:
+
+* Home Page
+* Tutor Listing Page
+* Booking Flow
+* Admin Dashboard
+
+---
+
+## ⚙️ Setup Instructions
+
+### 1️⃣ Clone the Repository
+
+```bash
+git clone https://github.com/arifulmit17/skillbridge-online
+cd skillbridge
+```
+
+### 2️⃣ Install Dependencies
+
+```bash
+npm install
+# or
+yarn install
+```
+
+### 3️⃣ Setup Environment Variables
+
+Create a `.env` file in the root directory and add the required variables (see below).
+
+### 4️⃣ Run Database Migrations
+
+```bash
+npx prisma migrate dev
+```
+
+### 5️⃣ Start Development Server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+App will be running at:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🔐 Environment Variables
 
-To learn more about Next.js, take a look at the following resources:
+```env
+# Database
+DATABASE_URL=your_database_url
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+# Authentication
+NEXTAUTH_SECRET=your_secret
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# API
+NEXT_PUBLIC_API_URL=http://localhost:5000
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+# App
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+```
