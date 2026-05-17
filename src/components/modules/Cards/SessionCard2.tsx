@@ -5,7 +5,7 @@ import {
   CardContent,
 } from "@/components/ui/card"
 
-import { userService } from "@/services/user.service"
+
 import { tutorService } from "@/services/tutor.service"
 import BookingButton from "../shared/BookingButton"
 import Link from "next/link"
@@ -67,7 +67,7 @@ export async function  SessionCard2({ session }: { session: Session }) {
   const start = session?.startTime
   const end = session?.endTime
   const sessionID=session?.studentId
-      const { data } = await  getUser();
+      const data  = await  getUser();
        
     const role= data?.user?.role
     const userId=data?.user?.id

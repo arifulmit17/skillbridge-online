@@ -1,291 +1,435 @@
-"use client";
+"use client"
 
-import { Book, Menu, Sunset, Trees, Zap } from "lucide-react";
+import {
+  Menu,
+} from "lucide-react"
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils"
 
 import {
   Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
-import { Button } from "@/components/ui/button";
+} from "@/components/ui/accordion"
+
+import { Button } from "@/components/ui/button"
+
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
+} from "@/components/ui/navigation-menu"
+
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet";
-import Link from "next/link";
-import { useEffect, useState } from "react";
-import { ModeToggle } from "../modules/shared/ModeToggle";
-import logo from "../logo.png";
-import Image from "next/image";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "../ui/dropdown-menu";
-import { getUser, logoutUser } from "@/services/auth.service";
-import { toast } from "sonner";
+} from "@/components/ui/sheet"
+
+import Link from "next/link"
+
+import {
+  useEffect,
+  useState,
+} from "react"
+
+import { ModeToggle } from "../modules/shared/ModeToggle"
+
+import Image from "next/image"
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "../ui/dropdown-menu"
+
+import {
+  getUser,
+  logoutUser,
+} from "@/services/auth.service"
+
+import { toast } from "sonner"
 
 interface MenuItem {
-  title: string;
-  url: string;
-  description?: string;
-  icon?: React.ReactNode;
-  items?: MenuItem[];
+  title: string
+  url: string
 }
 
 interface Navbar1Props {
-  className?: string;
-  logo?: {
-    src: string;
-    alt: string;
-    title: string;
-    className?: string;
-  };
-  menu?: MenuItem[];
-  auth?: {
-    login: {
-      title: string;
-      url: string;
-    };
-    signup: {
-      title: string;
-      url: string;
-    };
-  };
+  className?: string
 }
 
-
-
-
-const handleLogout = async () => {
-    const res = await logoutUser();
-    if (!res.success) {
-      toast.error("Logout failed");
-      return;
-    }
-    toast.success("Logged out successfully");
-    window.location.href = "/login";
-}
-
-const Navbar1 = ({
-  logo = {
-    
-    src: "/logo.svg",
-    alt: "logo",
-    title: "SkillBridge",
+const menu: MenuItem[] = [
+  {
+    title: "Home",
+    url: "/",
   },
-  menu = [
-    { title: "Home", url: "/" },
-    {
-      title: "Tutors",
-      url: "/tutors",
-      
-    },
-    {
-      title: "Sessions",
-      url: "/sessions",
-     
-    },
-    {
-      title: "About",
-      url: "/about",
-     
-    },
-    {
-      title: "Contact",
-      url: "/contact",
-     
-    },
-    
-    
-  ],
-  auth = {
-    login: { title: "Login", url: "/login" },
-    signup: { title: "Sign up", url: "/signup" },
+  {
+    title: "Tutors",
+    url: "/tutors",
   },
+  {
+    title: "Sessions",
+    url: "/sessions",
+  },
+  {
+    title: "About",
+    url: "/about",
+  },
+  {
+    title: "Contact",
+    url: "/contact",
+  },
+]
+
+export function Navbar1({
   className,
-}: Navbar1Props) => {
-  const [session, setSession] = useState<any>(null);
-const [loading, setLoading] = useState(true);
+}: Navbar1Props) {
+  const [session, setSession] =
+    useState<any>(null)
 
-const role = session?.role;
-console.log("role:", role);
+  const [loading, setLoading] =
+    useState(true)
 
-useEffect(() => {
-  const fetchSession = async () => {
-    const  data  = await getUser();
-    console.log("Session data:", data);
-    setSession(data);
-    setLoading(false);
-  };
+  // SAFE FETCH SESSION
+  useEffect(() => {
+    async function fetchSession() {
+      try {
+        const data = await getUser()
 
-  fetchSession();
-}, []);
-console.log(session);
-let dashboardItem: MenuItem | null = null;
+        // SAFE NULL CHECK
+        if (data) {
+          setSession(data)
+        }
+      } catch (error) {
+        console.error(
+          "Session fetch failed:",
+          error
+        )
+      } finally {
+        setLoading(false)
+      }
+    }
 
-if (role === "tutor") {
-  dashboardItem = { title: "Dashboard", url: "/tutor-dashboard" };
-} else if (role === "student" || role === "STUDENT") {
-  dashboardItem = { title: "Dashboard", url: "/dashboard" };
-} else if (role === "admin") {
-  dashboardItem = { title: "Dashboard", url: "/admin-dashboard" };
-}
- const finalMenu = dashboardItem ? [...menu, dashboardItem] : menu;
- 
-  // console.log(session);
+    fetchSession()
+  }, [])
+
+  // SAFE ROLE ACCESS
+  const role =
+    session?.role?.toLowerCase?.() || ""
+
+  let dashboardItem:
+    | MenuItem
+    | null = null
+
+  if (role === "tutor") {
+    dashboardItem = {
+      title: "Dashboard",
+      url: "/tutor-dashboard",
+    }
+  }
+
+  else if (
+    role === "student"
+  ) {
+    dashboardItem = {
+      title: "Dashboard",
+      url: "/dashboard",
+    }
+  }
+
+  else if (
+    role === "admin"
+  ) {
+    dashboardItem = {
+      title: "Dashboard",
+      url: "/admin-dashboard",
+    }
+  }
+
+  const finalMenu = dashboardItem
+    ? [...menu, dashboardItem]
+    : menu
+
+  // SAFE LOGOUT
+  const handleLogout =
+    async () => {
+      try {
+        const res =
+          await logoutUser()
+
+        if (!res?.success) {
+          toast.error(
+            "Logout failed"
+          )
+          return
+        }
+
+        toast.success(
+          "Logged out successfully"
+        )
+
+        window.location.href =
+          "/login"
+      } catch (error) {
+        console.error(error)
+
+        toast.error(
+          "Something went wrong"
+        )
+      }
+    }
+
   return (
-    <section className={cn("py-4 top-0 z-50 sticky bg-background/50 backdrop-blur-lg border-b border-border/50", className)}>
-      <div className="container mx-auto px-4 ">
-        {/* Desktop Menu */}
-        <nav className="hidden items-center justify-between lg:flex">
-          <div className="flex items-center gap-5">
-            {/* Logo */}
-            <div className="flex flex-col">
-              <Link href="/">
-                <Image width={50} height={10} src={logo.src} alt={logo.alt} className={logo.className} />
-             
+    <section
+      className={cn(
+        "sticky top-0 z-50 border-b border-border/50 bg-background/70 backdrop-blur-lg",
+        className
+      )}
+    >
+      <div className="container mx-auto px-4">
+
+        {/* DESKTOP */}
+        <nav className="hidden h-16 items-center justify-between lg:flex">
+
+          {/* LEFT */}
+          <div className="flex items-center gap-8">
+
+            {/* LOGO */}
+            <Link
+              href="/"
+              className="flex items-center gap-2"
+            >
+              <Image
+                src="/logo.png"
+                alt="SkillBridge"
+                width={45}
+                height={45}
+                priority
+              />
+
+              <span className="font-bold text-blue-600">
+                SkillBridge
+              </span>
             </Link>
-            <span className="text-sm text-blue-600 font-semibold tracking-tighter">
-              {logo.title}
-            </span>
 
-            </div>
-            
-          
-            <div className="flex items-center">
-              <NavigationMenu>
-                <NavigationMenuList>
-                  {finalMenu.map((item) => renderMenuItem(item))}
-                </NavigationMenuList>
-              </NavigationMenu>
-            </div>
+            {/* MENU */}
+            <NavigationMenu>
+              <NavigationMenuList>
+
+                {finalMenu.map(
+                  (item) => (
+                    <NavigationMenuItem
+                      key={
+                        item.title
+                      }
+                    >
+                      <NavigationMenuLink
+                        asChild
+                        className="group inline-flex h-10 items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-muted"
+                      >
+                        <Link
+                          href={
+                            item.url
+                          }
+                        >
+                          {
+                            item.title
+                          }
+                        </Link>
+                      </NavigationMenuLink>
+                    </NavigationMenuItem>
+                  )
+                )}
+
+              </NavigationMenuList>
+            </NavigationMenu>
           </div>
-          <div className="flex gap-2">
-             {session && (
-  <DropdownMenu>
-    <DropdownMenuTrigger>
-      <div className="px-3 py-1 text-sm rounded-full bg-secondary text-secondary-foreground cursor-pointer">
-        {session?.name}
-      </div>
-    </DropdownMenuTrigger>
 
-    <DropdownMenuContent>
-      
-      <DropdownMenuItem asChild>
-        <Link href="/profile">Profile</Link>
-      </DropdownMenuItem>
+          {/* RIGHT */}
+          <div className="flex items-center gap-3">
 
-      <DropdownMenuItem asChild>
-        
-              <div onClick={handleLogout}>Logout</div>
-            
-      </DropdownMenuItem>
+            <ModeToggle />
 
-    </DropdownMenuContent>
-  </DropdownMenu>
-)}
-            <ModeToggle></ModeToggle>
-           {!session && <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
-            </Button>}
-           
-          
-           
-            <Button asChild size="sm">
-              <a href={auth.signup.url}>{auth.signup.title}</a>
-            </Button>
+            {/* LOADING */}
+            {loading && (
+              <div className="text-sm text-muted-foreground">
+                Loading...
+              </div>
+            )}
+
+            {/* USER */}
+            {!loading &&
+              session && (
+                <DropdownMenu>
+
+                  <DropdownMenuTrigger asChild>
+                    <button className="rounded-full bg-primary px-4 py-2 text-sm text-primary-foreground">
+                      {session?.name ||
+                        "User"}
+                    </button>
+                  </DropdownMenuTrigger>
+
+                  <DropdownMenuContent align="end">
+
+                    <DropdownMenuItem asChild>
+                      <Link href="/profile">
+                        Profile
+                      </Link>
+                    </DropdownMenuItem>
+
+                    <DropdownMenuItem
+                      onClick={
+                        handleLogout
+                      }
+                    >
+                      Logout
+                    </DropdownMenuItem>
+
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
+
+            {/* GUEST */}
+            {!loading &&
+              !session && (
+                <>
+                  <Button
+                    asChild
+                    variant="outline"
+                    size="sm"
+                  >
+                    <Link href="/login">
+                      Login
+                    </Link>
+                  </Button>
+
+                  <Button
+                    asChild
+                    size="sm"
+                  >
+                    <Link href="/signup">
+                      Sign Up
+                    </Link>
+                  </Button>
+                </>
+              )}
+
           </div>
         </nav>
 
-        {/* Mobile Menu */}
-        <div className="block lg:hidden">
-          <div className="flex items-center justify-between">
-           
-            <Sheet>
-              <SheetTrigger asChild>
-                <Button variant="outline" size="icon">
-                  <Menu className="size-4" />
-                </Button>
-              </SheetTrigger>
-              <SheetContent className="overflow-y-auto">
-                <SheetHeader>
-                  <SheetTitle>
-                    
-                  </SheetTitle>
-                </SheetHeader>
-                <div className="flex flex-col gap-6 p-4">
-                  
-                    <ModeToggle></ModeToggle>
-                 
-                  
-                  <Accordion
-                    type="single"
-                    collapsible
-                    className="flex w-full flex-col gap-4"
-                  >
-                    {finalMenu.map((item) => renderMobileMenuItem(item))}
-                  </Accordion>
+        {/* MOBILE */}
+        <div className="flex h-16 items-center justify-between lg:hidden">
 
-                  <div className="flex flex-col gap-3">
-                    
-                   {!session ? <Button asChild variant="outline" size="sm">
-              <a href={auth.login.url}>{auth.login.title}</a>
-            </Button>:
-            <Button asChild variant="outline" size="sm">
-              <div onClick={handleLogout}>Logout</div>
-            </Button>}
-            <Button asChild size="sm">
-              <a href={auth.signup.url}>{auth.signup.title}</a>
-            </Button>
-                  </div>
+          <Link
+            href="/"
+            className="flex items-center gap-2"
+          >
+            <Image
+              src="/logo.png"
+              alt="SkillBridge"
+              width={40}
+              height={40}
+            />
+
+            <span className="font-bold text-blue-600">
+              SkillBridge
+            </span>
+          </Link>
+
+          <Sheet>
+
+            <SheetTrigger asChild>
+              <Button
+                variant="outline"
+                size="icon"
+              >
+                <Menu className="size-5" />
+              </Button>
+            </SheetTrigger>
+
+            <SheetContent>
+
+              <SheetHeader>
+                <SheetTitle>
+                  Menu
+                </SheetTitle>
+              </SheetHeader>
+
+              <div className="mt-6 flex flex-col gap-4">
+
+                <ModeToggle />
+
+                <Accordion
+                  type="single"
+                  collapsible
+                  className="flex flex-col gap-3"
+                >
+
+                  {finalMenu.map(
+                    (item) => (
+                      <Link
+                        key={
+                          item.title
+                        }
+                        href={
+                          item.url
+                        }
+                        className="text-sm font-medium"
+                      >
+                        {
+                          item.title
+                        }
+                      </Link>
+                    )
+                  )}
+
+                </Accordion>
+
+                <div className="flex flex-col gap-3 pt-4">
+
+                  {!loading &&
+                    !session && (
+                      <>
+                        <Button
+                          asChild
+                          variant="outline"
+                        >
+                          <Link href="/login">
+                            Login
+                          </Link>
+                        </Button>
+
+                        <Button asChild>
+                          <Link href="/signup">
+                            Sign Up
+                          </Link>
+                        </Button>
+                      </>
+                    )}
+
+                  {!loading &&
+                    session && (
+                      <Button
+                        variant="destructive"
+                        onClick={
+                          handleLogout
+                        }
+                      >
+                        Logout
+                      </Button>
+                    )}
+
                 </div>
-              </SheetContent>
-            </Sheet>
-          </div>
+
+              </div>
+
+            </SheetContent>
+          </Sheet>
         </div>
       </div>
     </section>
-  );
-};
-
-const renderMenuItem = (item: MenuItem) => {
-  
-
-  return (
-    <NavigationMenuItem key={item.title}>
-      <NavigationMenuLink
-      asChild
-        href={item.url}
-        className="group inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-muted hover:text-accent-foreground"
-      >
-        <Link href={item.url}>{item.title}</Link>
-       
-      </NavigationMenuLink>
-    </NavigationMenuItem>
-  );
-};
-
-const renderMobileMenuItem = (item: MenuItem) => {
-  
-
-  return (
-    <Link key={item.title} href={item.url} className="text-md font-semibold">
-      {item.title}
-    </Link>
-  );
-};
-
-
-
-export { Navbar1 };
+  )
+}

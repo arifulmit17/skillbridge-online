@@ -28,8 +28,8 @@ function StarRating({ rating }: { rating: number }) {
 
 
 export default async function ReviewPage({ review }: { review: Review }) {
-  const {data}=await userService2.getAllUser()
-  const student=data.filter(user=>user.id==review.userId)
+  const data=await userService2.getAllUser()
+  const student=data?.data.filter(user=>user.id==review.userId)
 
  
 

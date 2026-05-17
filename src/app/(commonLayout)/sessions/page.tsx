@@ -45,7 +45,7 @@ type Session = {
 
 export default async function SessionPage() {
 
-    const {data}=await getAllSessions()
+    const data=await getAllSessions()
     const sessionData= data
     // console.log(sessionData);
     

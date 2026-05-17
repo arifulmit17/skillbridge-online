@@ -15,7 +15,7 @@ type AvailabilitySlot = {
 
 
 export default async function Availability() {
-  const  {data}  = await getAllSlots()
+  const  data  = await getAllSlots()
   console.log("slots:",data);
   const slots = data || []
   console.log(slots);

@@ -5,8 +5,8 @@ import { getAllCategories } from '@/services/categories.service';
 
 
 export default async function Categories() {
-    const {data}=await getAllCategories()
-        const categoryList=await data;
+    const data=await getAllCategories()
+        const categoryList=await data?.data;
         
   return (
     <div className="w-11/12 grid-cols-1  grid lg:grid-cols-3 gap-5">

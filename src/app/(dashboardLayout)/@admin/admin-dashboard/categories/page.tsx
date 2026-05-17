@@ -15,8 +15,8 @@ type   category= {
 }
 
 export default async function Categorypage() {
-    const {data}=await getAllCategories()
-    const categoryList=data
+    const data=await getAllCategories()
+    const categoryList=data.data
     console?.log(categoryList);
   return (
     <div className="space-y-4">

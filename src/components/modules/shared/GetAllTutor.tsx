@@ -22,11 +22,11 @@ type Tutor = {
 }
 
 export default async function GetAllTutor() {
-    const {data}=await tutorService?.getTutor();
+    const data=await tutorService?.getTutor();
   return (
     <div>
         {
- data?.map((tutor:Tutor)=><TutorCard key={tutor?.id} tutor={tutor}></TutorCard>)
+ data?.data?.map((tutor:Tutor)=><TutorCard key={tutor?.id} tutor={tutor}></TutorCard>)
         }
       
     </div>

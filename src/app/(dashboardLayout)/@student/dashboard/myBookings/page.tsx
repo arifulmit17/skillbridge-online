@@ -49,8 +49,8 @@ type Session = {
 export default async function MyBookingPage() {
     const {data:user}=await  getUser()
     const  myId=user?.session?.userId;
-    const {data}=await getAllSessions()
-    const booking=await data?.json()
+    const data=await getAllSessions()
+    const booking=await data?.data;
     
     const myBookings = booking?.filter((b:Session) => b?.studentId === myId);
     

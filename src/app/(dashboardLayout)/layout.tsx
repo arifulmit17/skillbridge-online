@@ -20,7 +20,6 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 import { getUser } from "@/services/auth.service";
-import { userService } from "@/services/user.service";
 import { Link } from "lucide-react";
 import { Children } from "react";
 
